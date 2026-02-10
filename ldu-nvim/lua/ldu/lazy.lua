@@ -20,6 +20,6 @@ require("lazy").setup({
     { import = "ldu.plugins" },
   },
 
-  --root = base,
-  --lockfile = fn.stdpath("config") .. "/lazy-lock.json",
+  root = base,
+  lockfile = fn.stdpath("config") .. "/lazy-lock.json",
 })

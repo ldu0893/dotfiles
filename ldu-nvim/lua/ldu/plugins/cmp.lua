@@ -60,7 +60,21 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer" },
+          {
+            name = "buffer",
+            option = {
+              get_bufnrs = function()
+                -- skip large buffers for completion scanning
+                local bufs = {}
+                for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                  if not vim.b[buf].large_file then
+                    bufs[#bufs + 1] = buf
+                  end
+                end
+                return bufs
+              end,
+            },
+          },
         }),
       })
     end,
