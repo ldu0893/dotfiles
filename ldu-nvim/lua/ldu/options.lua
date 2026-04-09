@@ -13,6 +13,21 @@ vim.opt.undofile = true
 
 -- Mouse: enable + copy visual selection to clipboard on release
 vim.opt.mouse = "a"
+
+-- Use OSC 52 for clipboard (works over SSH/tmux)
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
+
+-- On mouse release in visual mode, yank selection to system clipboard
 vim.keymap.set("v", "<LeftRelease>", '"+y', { noremap = true })
 
 -- Disable expensive features for large files (>1 MB)
